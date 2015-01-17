@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.dimit.com/esayTest" xmlns="http://www.dimit.com/esayTest"
+	elementFormDefault="qualified">
+	
+	<xsd:element name="config">
+		<xsd:complexType>
+			<xsd:sequence>
+			</xsd:sequence>
+			<xsd:attribute name="open" type="xsd:boolean" default="false" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

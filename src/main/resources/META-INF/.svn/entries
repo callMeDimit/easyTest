@@ -1,0 +1,52 @@
+8
+
+dir
+370
+svn://192.168.10.202/commons/branch/2.5/common-resource/src/main/resources/META-INF
+svn://192.168.10.202/commons
+
+
+
+2014-01-18T07:47:24.512819Z
+204
+Birdy
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4158a04b-3a29-4bfc-ba18-ed9c3a187cb9
+
+spring.handlers
+file
+
+
+
+
+2014-12-23T07:44:31.032000Z
+fde2c722d406b760660b4607f8c0f577
+2013-05-06T12:40:48.791016Z
+6
+Ramon
+
+spring.schemas
+file
+
+
+
+
+2014-12-23T07:44:31.035000Z
+a6ebee6c47b26cee13808fd751b2199d
+2014-01-18T07:47:24.512819Z
+204
+Birdy
+
