@@ -6,8 +6,23 @@
 	<xsd:element name="config">
 		<xsd:complexType>
 			<xsd:sequence>
+				<xsd:element name="format" type="format" />
 			</xsd:sequence>
 			<xsd:attribute name="open" type="xsd:boolean" default="false" use="optional"/>
 		</xsd:complexType>
 	</xsd:element>
+	
+	<!-- 格式声明类型 -->
+	<xsd:complexType name="format">
+		<!-- 本地资源路径 -->
+		<xsd:attribute name="location" type="xsd:string" use="required" />
+		<!-- 资源类型 -->
+		<xsd:attribute name="type" type="xsd:string" use="required" />
+		<!-- 资源文件后缀 -->
+		<xsd:attribute name="suffix" type="xsd:string" use="required" />
+		<!-- 资源文件sheet空间名称 -->
+		<xsd:attribute name = "sheet" type = "xsd:string" use = "required"/>
+		<!-- 配置信息 -->
+		<xsd:attribute name="config" type="xsd:string" use="optional" />
+	</xsd:complexType>
 </xsd:schema>
