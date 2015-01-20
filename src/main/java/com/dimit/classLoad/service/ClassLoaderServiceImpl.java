@@ -1,19 +1,19 @@
 package com.dimit.classLoad.service;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 
 import com.dimit.anno.Ignore;
-import com.dimit.anno.Test;
 import com.dimit.classLoad.TestClzInfo;
-import com.dimit.classLoad.cglib.TestEnhance;
-import com.dimit.classLoad.cglib.TestProxyFactory;
 import com.dimit.classLoad.service.inter.ClassLoaderServiceInter;
 import com.dimit.excel.service.ExcelServiceImpl;
 
@@ -35,15 +35,16 @@ public class ClassLoaderServiceImpl implements ClassLoaderServiceInter {
 	public static final String TEST_ROOT_PATH = System.getProperty(USER_DIR)
 			+ TEST_PATH;
 
-	@Autowired
-	private ExcelServiceImpl excelService;
+	private BeanDefinitionRegistry registry;
+	/** 测试类beanName缓存*/
+	private Set<String> beanNameCache;
 	
 	/** 测试类加载器*/
 	private URLClassLoader clsLoader;
 
-	public ClassLoaderServiceImpl(ExcelServiceImpl excelService) {
-		//spring构造函数注入excelService对象
-		this.excelService = excelService;
+	public ClassLoaderServiceImpl( BeanDefinitionRegistry registry) {
+		this.registry = registry;
+		this.beanNameCache = new HashSet<String>();
 		// 构建ClassLoader
 		clsLoader = new URLClassLoader(createUrls());
 		init();
@@ -69,27 +70,14 @@ public class ClassLoaderServiceImpl implements ClassLoaderServiceInter {
 			if (ignore != null) {
 				return;
 			}
-			Object obj = TestProxyFactory.getTestProxy(clz ,new TestEnhance());
-			System.out.println(obj);
-			for (Method m : clz.getMethods()) {
-				Test t = m.getAnnotation(Test.class);
-				if (t != null) {
-					preTest();
-					m.invoke(clz.newInstance(), new Object[] {});
-					postTest();
-				}
-			}
+			String beanName = clz.getName();
+			//向容器注入测试类
+			regTestClz(beanName, clz);
+			//缓存测试类beanName
+			beanNameCache.add(beanName);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 
 	/**
@@ -130,16 +118,23 @@ public class ClassLoaderServiceImpl implements ClassLoaderServiceInter {
 	}
 	
 	/**
-	 * 测试前置操作
+	 * 向容器注册测试类
+	 * @param beanName
+	 * @param clz
 	 */
-	private void preTest() {
-		
+	private void regTestClz(String beanName , Class<?> clz) {
+		BeanDefinitionBuilder factory = BeanDefinitionBuilder
+				.rootBeanDefinition(clz);
+		registry.registerBeanDefinition(beanName, factory.getBeanDefinition());
 	}
 	
+	// ----getter
+
 	/**
-	 * 测试后置操作
+	 * @return the beanNameCache
 	 */
-	private void postTest() {
-		
+	public Set<String> getBeanNameCache() {
+		return beanNameCache;
 	}
+	
 }

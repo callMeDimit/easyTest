@@ -1,6 +1,5 @@
 package com.dimit.schema;
 
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -12,7 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.dimit.classLoad.service.ClassLoaderServiceImpl;
-import com.dimit.excel.Format;
+import com.dimit.excel.config.Format;
 import com.dimit.excel.service.ExcelServiceImpl;
 
 /**
@@ -74,14 +73,8 @@ public class ConfigDefinitionParse extends AbstractBeanDefinitionParser {
 		BeanDefinitionBuilder factory = BeanDefinitionBuilder
 				.rootBeanDefinition(ClassLoaderServiceImpl.class);
 		
-		//将读取的静态excel数据服务对象注入类加载服务对象中
-		if(registry instanceof BeanFactory) {
-			BeanFactory beanFactory = (BeanFactory) registry;
-			ExcelServiceImpl excelService = (ExcelServiceImpl) beanFactory
-					.getBean(StringUtils.uncapitalize(ExcelServiceImpl.class
-							.getSimpleName()));
-			factory.addConstructorArgValue(excelService);
-		}
+		//构造方式注入BeanDefinitionRegistry对象
+		factory.addConstructorArgValue(registry);
 		registry.registerBeanDefinition(name, factory.getBeanDefinition());
 	}
 

@@ -1,7 +1,7 @@
 package com.dimit.excel.service;
 
-import com.dimit.excel.Format;
 import com.dimit.excel.config.ExcelConfig;
+import com.dimit.excel.config.Format;
 
 
 /**
@@ -30,5 +30,15 @@ public class ExcelServiceImpl {
 		//初始化excel配置信息
 		excelConfig.init();
 	}
+
+	//----getter
+	/**
+	 * @return the excelConfig
+	 */
+	public ExcelConfig getExcelConfig() {
+		return excelConfig;
+	}
+	
+	
 }
 
