@@ -1,22 +1,15 @@
 package com.dimit.service.convert;
 
-import java.lang.reflect.Method;
-
 import org.springframework.stereotype.Component;
 
-import com.dimit.excel.config.ExcelConfig;
+import com.dimit.service.convert.inter.Convertor;
 
 /**
  * Dimit 2015年1月20日
  * 方法数据转换
  */
 @Component
-public class MethodConvert extends AbstractConvertor{
-
-	@Override
-	public MethodContext context(Method m ,ExcelConfig config) {
-		return null;
-	}
+public class MethodConvert implements Convertor{
 
 	@Override
 	public ConvertorType getType() {

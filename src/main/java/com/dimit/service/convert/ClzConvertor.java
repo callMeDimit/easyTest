@@ -4,9 +4,9 @@ import com.dimit.service.convert.inter.Convertor;
 
 /**
  * Dimit 2015年1月20日
- * 对象数据转换器
+ * 类数据转换器暂时未使用
  */
-public class ObjectConvert implements Convertor{
+public class ClzConvertor implements Convertor {
 
 	@Override
 	public MethodContext convertor(MethodContext context) {
@@ -15,7 +15,7 @@ public class ObjectConvert implements Convertor{
 
 	@Override
 	public ConvertorType getType() {
-		return ConvertorType.OBJECTCONVERTOR;
+		return ConvertorType.CLZCONVERTOR;
 	}
 
 }
