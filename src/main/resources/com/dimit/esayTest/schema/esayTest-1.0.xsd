@@ -20,8 +20,6 @@
 		<xsd:attribute name="type" type="xsd:string" use="required" />
 		<!-- 资源文件后缀 -->
 		<xsd:attribute name="suffix" type="xsd:string" use="required" />
-		<!-- 资源文件sheet空间名称 -->
-		<xsd:attribute name = "sheet" type = "xsd:string" use = "required"/>
 		<!-- 配置信息 -->
 		<xsd:attribute name="config" type="xsd:string" use="optional" />
 	</xsd:complexType>
