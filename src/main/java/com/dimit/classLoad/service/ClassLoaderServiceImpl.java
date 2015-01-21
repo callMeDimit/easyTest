@@ -4,9 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import com.dimit.anno.Ignore;
 import com.dimit.classLoad.TestClzInfo;
 import com.dimit.classLoad.service.inter.ClassLoaderServiceInter;
-import com.dimit.excel.service.ExcelServiceImpl;
 
 /**
  * Dimit 2015年1月17日 加载测试类服务实现类

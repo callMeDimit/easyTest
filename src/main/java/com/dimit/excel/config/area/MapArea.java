@@ -16,10 +16,6 @@ public class MapArea implements StrDataReader {
 
 	}
 
-	@Override
-	public String getRowColVal(int row, int col) {
-		return null;
-	}
 
 }
 

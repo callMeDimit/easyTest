@@ -15,11 +15,5 @@ public class ObjectArea implements StrDataReader {
 	public void init(Sheet sheet , ExcelConfig config) {
 
 	}
-
-	@Override
-	public String getRowColVal(int row, int col) {
-		return null;
-	}
-
 }
 

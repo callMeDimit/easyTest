@@ -16,10 +16,6 @@ public class CollectionArea implements StrDataReader {
 
 	}
 
-	@Override
-	public String getRowColVal(int row, int col) {
-		return null;
-	}
 
 }
 

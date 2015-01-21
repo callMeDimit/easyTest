@@ -16,6 +16,7 @@ import com.dimit.excel.config.area.MethodArea;
 import com.dimit.excel.config.area.ObjectArea;
 import com.dimit.excel.config.area.TestClzArea;
 import com.dimit.excel.config.inter.StrDataReader;
+import com.dimit.exception.DataCastToStringException;
 import com.dimit.exception.ExcelReaderNotFoundException;
 
 /**
@@ -35,6 +36,8 @@ public class ExcelConfig {
 	private MapArea mapArea;
 	/** 一般集合区*/
 	private CollectionArea collArea;
+	/** excel 读取类*/
+	private Workbook wb;
 	
 	//逻辑方法
 	/**
@@ -43,7 +46,7 @@ public class ExcelConfig {
 	public void init() {
 		try {
 			InputStream input = new FileInputStream(new File(format.getLocation()));
-			Workbook wb = new HSSFWorkbook(input);
+			wb = new HSSFWorkbook(input);
 			//遍历读取所有sheet空间
 			for(ConfigType type : ConfigType.values()) {
 				Sheet sheet = wb.getSheet(type.getSheetName());
@@ -66,7 +69,11 @@ public class ExcelConfig {
 		if(reader == null) {
 			throw new ExcelReaderNotFoundException("未找到"+ clzName + "excel读取器");
 		}
-		reader.init(sheet,this);
+		try {
+			reader.init(sheet,this);
+		} catch (DataCastToStringException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// getter

@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 
 import com.dimit.excel.config.CellData;
 import com.dimit.excel.config.RowData;
+import com.dimit.exception.DataCastToStringException;
 
 /**
  * Dimit 2015年1月18日
@@ -111,6 +112,38 @@ public class ExcelReadUtils {
 	public static boolean isNull(Object o ) {
 		if(o == null) {
 			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 检查是否到达文件末尾
+	 * @param sheet
+	 * @param rowNumber
+	 * @return 如果该行的首个单元格为空则返回true
+	 */
+	public static boolean isLastRow(Sheet sheet , int rowNumber) {
+		Row row = sheet.getRow(rowNumber);
+		if(row == null) {
+			return true;
+		}
+		if(row.getCell(ROW_FIRST_CELL) == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断是否是方法区域测试类开始
+	 * @param cell
+	 * @param cellNumber
+	 * @return
+	 * @throws DataCastToStringException 
+	 */
+	public static boolean isMtdClz(Cell cell, int cellNumber) throws DataCastToStringException {
+		//如果不是字符串
+		if(cell.getCellType() != Cell.CELL_TYPE_STRING) {
+			throw new DataCastToStringException("数据转换异常");
 		}
 		return false;
 	}
